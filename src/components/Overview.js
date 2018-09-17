@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, SectionList } from 'react-native';
 import { connect } from 'react-redux';
-import Material from 'react-native-vector-icons/MaterialCommunityIcons'
+import Material from 'react-native-vector-icons/MaterialCommunityIcons';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 class Overview extends React.Component {
 
@@ -40,8 +41,8 @@ class Overview extends React.Component {
     let cpt = 0;
     data.forEach(item => cpt += item.counter);
     return (
-      <View style={{backgroundColor: '#35a6b4', justifyContent: 'center', paddingVertical: 10, borderBottomWidth: 2, borderColor: '#555'}}>
-        <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'white', fontSize: 17}}>
+      <View style={{backgroundColor: '#35a6b4', justifyContent: 'center', paddingVertical: 15}}>
+        <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'white', fontSize: 18}}>
           {title} - Total : {cpt}
         </Text>
       </View>
@@ -50,30 +51,52 @@ class Overview extends React.Component {
 
   renderItem = ({ item }) => {
     return (
-      <View style={{margin: 10, padding: 10, backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', borderRadius: 4, borderWidth: 2, borderColor: '#bbb'}}>
-        <Material style={{paddingBottom: 10, marginLeft: 10, width: 50}} name={'smoking'} color={'black'} size={25}/>
-        <View style={{alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={styles.text}>{item.dayString}</Text>
-          <Text style={styles.text}>{item.day}</Text>
+      <View style={{paddingVertical: 10, height: 90, flexDirection: 'row', justifyContent: 'space-evenly'}}>
+        <View style={{marginLeft: 20, flex:1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderRadius: 4, borderWidth: 2, borderColor: '#bbb', overflow: 'hidden'}}>
+            <Text style={styles.text}>{item.dayString} {item.day}</Text>
         </View>
-        <View style={{marginRight: 10, flexDirection: 'row', alignItems: 'center'}}>
-          <Text style={[styles.text, {width: 50}]}>{item.counter}</Text>
+        <View style={{marginHorizontal: 20, backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', borderRadius: 4, borderWidth: 2, borderColor: '#bbb', overflow: 'hidden'}}>
+          <View style={{width: 70, height: "100%", alignItems: 'center', justifyContent: 'center', backgroundColor: '#35a6b4', borderRightWidth: 1, borderColor: '#bbb'}}>
+            <Material style={{paddingBottom: 10}} name={'smoking'} color={'white'} size={25}/>
+          </View>
+          <View style={{width: 70, height: "100%", alignItems: 'center', justifyContent: 'center', backgroundColor: 'white'}}>
+            <Text style={[styles.text, {color: 'black'}]}>{item.counter}</Text>
+          </View>
         </View>
       </View>
     )
   }
 
+  renderSeparator = () => {
+    return (
+      <View
+        style={{
+          height: 4,
+          width: "100%",
+          backgroundColor: "white",
+        }}
+      />
+    );
+  };
+
   renderEmptyList = () => {
     return (
-      <View style={{width: '100%', justifyContent: 'center', alignItems: 'center'}}>
-        <Text>Vous n'avez saisi aucun jour</Text>
+      <View style={{height: '100%'}}>
+        <View style={{backgroundColor: '#35a6b4', justifyContent: 'center', paddingVertical: 15}}>
+          <Text style={{ fontWeight: 'bold', textAlign: 'center', color: 'white', fontSize: 18}}>
+            Aucune donnée
+          </Text>
+        </View>
+        <View style={{marginTop:-30, height: '100%', justifyContent: 'center', alignItems: 'center'}}>
+          <Ionicons name={'logo-no-smoking'} size={120} color={'white'} />
+        </View>
       </View>
     )
   }
 
   render() {
     return (
-      <View style={styles.container}>
+      <View>
         {
         this.state.list.length !== 0 ?
           <SectionList
@@ -82,10 +105,11 @@ class Overview extends React.Component {
             sections={this.state.list}
             renderSectionHeader={this.renderSectionHeader}
             renderItem={this.renderItem}
+            ItemSeparatorComponent={this.renderSeparator}
             keyExtractor={(item, index) => String(item.year) + String(item.month) + String(item.day) + String(index)}
           />
         :
-            this.renderEmptyList()
+          this.renderEmptyList()
         }
       </View>
     );

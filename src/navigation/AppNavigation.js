@@ -11,17 +11,11 @@ const DayStack = createStackNavigator(
   {
     Day: {
       screen: Day,
-      navigationOptions: () => {
-        return {
-          headerTitle: 'Modification du nombre de clopes'
-        };
-      }
     },
   },
   {
     navigationOptions: () => ({
-      headerStyle: { backgroundColor: '#efefef' },
-      headerTintColor: "black",
+      header: null
     }),
   }
 );
@@ -29,33 +23,18 @@ const DayStack = createStackNavigator(
 const OverviewStack = createStackNavigator(
   {
     Overview: {
-      screen: Overview,
-      navigationOptions: () => {
-        return {
-          headerTitle: "Vue d'ensemble"
-        };
-      }
+      screen: Overview
     },
   },
   {
     navigationOptions: () => ({
-      headerStyle: { backgroundColor: '#efefef' },
-      headerTintColor: "black",
+      header: null
     }),
   }
 );
 
 const TabNavigator = createBottomTabNavigator(
   {
-    Overview: {
-      screen: OverviewStack,
-      navigationOptions: () => {
-        return {
-          header: null,
-          title: "Visualisation",
-        }
-      }
-    },
     DayChange: {
       screen: DayStack,
       navigationOptions: () => {
