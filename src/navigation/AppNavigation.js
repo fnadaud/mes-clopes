@@ -47,6 +47,15 @@ const OverviewStack = createStackNavigator(
 
 const TabNavigator = createBottomTabNavigator(
   {
+    Overview: {
+      screen: OverviewStack,
+      navigationOptions: () => {
+        return {
+          header: null,
+          title: "Visualisation",
+        }
+      }
+    },
     DayChange: {
       screen: DayStack,
       navigationOptions: () => {
@@ -81,7 +90,7 @@ const TabNavigator = createBottomTabNavigator(
       },
     }),
     tabBarOptions: {
-      activeTintColor: '#2b69ab',
+      activeTintColor: '#35a6b4',
       inactiveTintColor: 'gray',
     },
     animationEnabled: false,
