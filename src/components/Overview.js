@@ -51,12 +51,12 @@ class Overview extends React.Component {
 
   renderItem = ({ item }) => {
     return (
-      <View style={{paddingVertical: 10, height: 90, flexDirection: 'row', justifyContent: 'space-evenly'}}>
-        <View style={{marginLeft: 20, flex:1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderRadius: 4, borderWidth: 2, borderColor: '#bbb', overflow: 'hidden'}}>
+      <View style={{paddingVertical: 10, height: 80, flexDirection: 'row', justifyContent: 'space-evenly'}}>
+        <View style={{marginLeft: 20, flex:1, backgroundColor: 'white', alignItems: 'center', justifyContent: 'center', flexDirection: 'row', borderRadius: 4, overflow: 'hidden'}}>
             <Text style={styles.text}>{item.dayString} {item.day}</Text>
         </View>
-        <View style={{marginHorizontal: 20, backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', borderRadius: 4, borderWidth: 2, borderColor: '#bbb', overflow: 'hidden'}}>
-          <View style={{width: 70, height: "100%", alignItems: 'center', justifyContent: 'center', backgroundColor: '#35a6b4', borderRightWidth: 1, borderColor: '#bbb'}}>
+        <View style={{marginHorizontal: 20, backgroundColor: 'white', alignItems: 'center', justifyContent: 'space-between', flexDirection: 'row', borderRadius: 4, overflow: 'hidden'}}>
+          <View style={{width: 70, height: "100%", alignItems: 'center', justifyContent: 'center', backgroundColor: '#35a6b4'}}>
             <Material style={{paddingBottom: 10}} name={'smoking'} color={'white'} size={25}/>
           </View>
           <View style={{width: 70, height: "100%", alignItems: 'center', justifyContent: 'center', backgroundColor: 'white'}}>

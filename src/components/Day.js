@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, View, FlatList, Button } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Button, TouchableNativeFeedback } from 'react-native';
+import Material from 'react-native-vector-icons/MaterialCommunityIcons';
 import { connect } from 'react-redux';
 import * as Actions from "../store/actions";
 
@@ -46,18 +47,35 @@ class Day extends React.Component {
     const { currentDay } = this.state;
     return (
       <View style={styles.container}>
-        <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-          <Button onPress={() => this.changeCurrentDay(this.state.index + 1)} title={'Précédent'} disabled={this.state.index === 6} />
-          <Text style={{width: 190, textAlign: 'center'}}>{currentDay.dayString} {currentDay.day} {currentDay.monthString} {currentDay.year}</Text>
-          <Button onPress={() => this.changeCurrentDay(this.state.index - 1)} title={'Suivant'} disabled={this.state.index === 0} />
+        <View style={{flexDirection: 'row', width:'100%', paddingVertical: 15, alignItems: 'center', justifyContent: 'space-between', backgroundColor: '#35a6b4'}}>
+          <TouchableOpacity onPress={() => this.changeCurrentDay(this.state.index + 1)} title={'Précédent'} disabled={this.state.index === 6} style={[styles.button, this.state.index === 6 && {opacity: 0.3}]}>
+            <Material name={"chevron-left"} color={'white'} size={24}/>
+          </TouchableOpacity>
+          <Text style={{ fontSize: 18, textAlign: 'center', color: 'white', fontWeight: 'bold'}}>{currentDay.dayString} {currentDay.day} {currentDay.monthString}</Text>
+          <TouchableOpacity onPress={() => this.changeCurrentDay(this.state.index - 1)} title={'Suivant'} disabled={this.state.index === 0} style={[styles.button, this.state.index === 0 && {opacity: 0.3}]}>
+            <Material name={"chevron-right"} color={'white'} size={24}/>
+          </TouchableOpacity>
         </View>
         <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-          <Text style={{ marginBottom: 20 }}>Nombre de clopes du jour :</Text>
-          <Text style={{marginBottom: 20}}>{currentDay.counter}</Text>
-          <View style={{flexDirection: 'row'}}>
-            <Button onPress={() => this.updateCounter(-1)} title={'-'} disabled={currentDay.counter === 0}/>
-            <Text>{'     '}</Text>
-            <Button onPress={() => this.updateCounter(1)} title={'+'} />
+          <View style={{height: 260, width: 200, backgroundColor: 'white', elevation: 4}}>
+            <View style={{height: 30, width: 200, backgroundColor: '#35a6b4'}}/>
+            <View style={{height: 230, width: 200, alignItems: 'center', justifyContent: 'space-evenly'}}>
+              <Text style={{fontSize: 18, textAlign: 'center' }}>Nombre de clopes :</Text>
+              <Text style={{fontSize: 45}}>{currentDay.counter}</Text>
+              <View style={{flexDirection: 'row'}}>
+                <View style={{backgroundColor: currentDay.counter === 0 ? 'grey' : '#35a6b4', borderRadius: 4, elevation: 4}}>
+                  <TouchableOpacity onPress={() => this.updateCounter(-1)} disabled={currentDay.counter === 0} style={{width: 45, height: 45, justifyContent: 'center', alignItems: 'center'}} >
+                    <Text style={{color: 'white', textAlign: 'center', textAlignVertical: 'center', fontSize: 18, elevation: 2}}>-</Text>
+                  </TouchableOpacity>
+                </View>
+                <Text>{'       '}</Text>
+                <View style={{backgroundColor: '#35a6b4', borderRadius: 4, elevation: 4}}>
+                  <TouchableOpacity onPress={() => this.updateCounter(1)} style={{width: 45, height: 45, justifyContent: 'center', alignItems: 'center'}} >
+                    <Text style={{color: 'white', textAlign: 'center', textAlignVertical: 'center', fontSize: 18, elevation: 2}}>+</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>
+            </View>
           </View>
         </View>
       </View>
@@ -68,8 +86,12 @@ class Day extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
   },
+  button: {
+    width: 80,
+    justifyContent: 'center',
+    alignItems:'center'
+  }
 });
 
 const mapStateToProps = store => {
